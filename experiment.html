@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demographics</title>
+<script src="jspsych_8.2.1/jspsych.js"></script>
+<script src="jspsych_8.2.1/plugin-html-button-response.js"></script>
+<script src="jspsych_8.2.1/plugin-survey.js"></script>
+<link rel="stylesheet" href="jspsych_8.2.1/jspsych.css" />
+<link rel="stylesheet" href="jspsych_8.2.1/survey.css">
+</head>
+<body></body>
+<script>
+var jsPsych = initJsPsych({
+	show_progress_bar: true,
+  on_finish: function() {
+    jsPsych.data.displayData();
+  }
+});
+var timeline = [];
+
+const race_ethn_json = {
+	showQuestionNumbers: false,
+	elements: [
+	{
+		"type": "panel",
+		"name": "race_ethnicity",
+		"title": "How do you describe your race or ethnicity?\n\tMark all boxes that apply and print ethnicities in the space below.\n\tNote, you may report more than one group.",
+		"state": "expanded",
+		"isRequired": true,
+		"elements": [
+{
+	"name": "race_white",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["White - Provide details below."],
+},
+{
+	"visibleIf":"{race_white} = ['White - Provide details below.']",
+	"name": "ethnicity_white",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["German","Irish","English","Italian","Polish","French"],
+	"colCount": 3,
+	"showOtherItem": true,
+	"otherText": "Other",
+	"otherPlaceholder": "For example, Scottish, Norwegian, Dutch, etc.",
+	"separateSpecialChoices": true,
+},
+{
+	"name": "race_hispanic",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Hispanic, Latino, or Spanish - Provide details below."],
+},
+{
+	"visibleIf":"{race_hispanic} = ['Hispanic, Latino, or Spanish - Provide details below.']",
+	"name": "ethnicity_hispanic",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Mexican or American Mexican","Puerto Rican","Cuban","Salvadoran","Dominican","Colombian"],
+	"colCount": 3,
+	"showOtherItem": true,
+	"otherText": "Other",
+	"otherPlaceholder": "For example, Guatemalan, Spaniard, Ecuadorian, etc.",
+	"separateSpecialChoices": true,
+},	
+{
+	"name": "race_black",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Black or African American - Provide details below."],
+},
+{
+	"visibleIf":"{race_black} = ['Black or African American - Provide details below.']",
+	"name": "ethnicity_black",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["African American","Jamaican","Haitian","Nigerian","Ethiopian","Somali"],
+	"colCount": 3,
+	"showOtherItem": true,
+	"otherText": "Other",
+	"otherPlaceholder": "For example, Ghanaian, South African, Barbadian, etc.",
+	"separateSpecialChoices": true,
+},
+{
+	"name": "race_asian",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Asian - Provide details below."],
+},	
+{
+	"visibleIf":"{race_asian} = ['Asian - Provide details below.']",
+	"name": "ethnicity_asian",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Chinese","Filipino","Asian Indian","Vietnamese","Korean","Japanese"],
+	"colCount": 3,
+	"showOtherItem": true,
+	"otherText": "Other",
+	"otherPlaceholder": "For example, Pakistani, Cambodian, Hmong, etc.",
+	"separateSpecialChoices": true,
+},
+{
+	"name": "race_american_indian",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": [],
+	"showOtherItem": true,
+	"otherText": "American Indian or Alaska Native - Provide details below.",
+	"otherPlaceholder": "For example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Native Village of Barrow Inupiat Traditional Government, Tlingit, etc.",
+},
+{
+	"name": "race_middle_eastern",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Middle Eastern or North African - Provide details below."],
+},
+{
+	"visibleIf":"{race_middle_eastern} = ['Middle Eastern or North African - Provide details below.']",
+	"name": "ethnicity_middle_eastern",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Lebanese","Iranian","Egyptian","Syrian","Moroccan","Algerian"],
+	"colCount": 3,
+	"showOtherItem": true,
+	"otherText": "Other",
+	"otherPlaceholder": "For example, Israeli, Iraqi, Tunisian, etc.",
+	"separateSpecialChoices": true,
+},
+{
+	"name": "race_native_hawaiian",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Native Hawaiian or Other Pacific Islander - Provide details below."],
+},
+{
+	"visibleIf":"{race_native_hawaiian} = ['Native Hawaiian or Other Pacific Islander - Provide details below.']",
+	"name": "ethnicity_native_hawaiian",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": ["Native Hawaiian","Samoan","Chamorro","Tongan","Fijian","Marshallese"],
+	"colCount": 3,
+	"showOtherItem": true,
+	"otherText": "Other",
+	"otherPlaceholder": "For example, Palauan, Tahitian, Chuukese, etc.",
+	"separateSpecialChoices": true,
+},
+{
+	"name": "race_other",
+	"type": "checkbox",
+	"title": " ",
+	"titleLocation": "hidden",
+	"choices": [],
+	"showOtherItem": true,
+	"otherText": "Some other race or ethnicity - Provide details below.",
+},
+]}]};
+	
+const survey_trial = {
+type: jsPsychSurvey,
+survey_json: race_ethn_json
+};
+
+timeline.push(survey_trial);
+jsPsych.run(timeline)
+
+
+</script>
+</html>
